@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DC Motor operational domain boundary externalized from dc_motor_setup.xml -->
+<uq:HyperRectangle xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification">
+  <uq:Point coordinates="10.0 14.0"/>
+  <uq:Point coordinates="0.0 0.75"/>
+</uq:HyperRectangle>

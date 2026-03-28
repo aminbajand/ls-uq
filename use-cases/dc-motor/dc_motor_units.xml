@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DC Motor units externalized from dc_motor_setup.xml -->
+<uq:Units xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification"
+    xmlns:ssc="http://ssp-standard.org/SSP1/SystemStructureCommon">
+  <uq:Unit name="kg.m^2">
+    <ssc:BaseUnit kg="1" m="2" />
+  </uq:Unit>
+  <uq:Unit name="Ohm">
+    <ssc:BaseUnit kg="1" m="2" s="-3" A="-2" />
+  </uq:Unit>
+  <uq:Unit name="N.m/A">
+    <ssc:BaseUnit kg="1" m="2" s="-2" A="-1" />
+  </uq:Unit>
+  <uq:Unit name="rev/min">
+    <ssc:BaseUnit rad="1" s="-1" factor="9.5492965855137" />
+  </uq:Unit>
+</uq:Units>

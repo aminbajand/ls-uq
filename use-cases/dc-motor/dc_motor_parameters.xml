@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DC Motor parameters externalized from dc_motor_setup.xml -->
+<uq:Parameters xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification"
+    xmlns:ssv="http://ssp-standard.org/SSP1/SystemStructureParameterValues">
+  <uq:Parameter name="dcMotor.d">
+    <ssv:Real value="1e-4" unit="N.m.s/rad" />
+  </uq:Parameter>
+
+  <uq:Parameter name="dcMotor.c_m">
+    <ssv:Real value="0.01" unit="N.m/A" />
+  </uq:Parameter>
+
+  <uq:Parameter name="dcMotor.c_g">
+    <ssv:Real value="0.01" unit="V.s/rad" />
+  </uq:Parameter>
+
+  <uq:Parameter name="dcMotor.J">
+    <ssv:Real value="5.0e-5" unit="kg.m^2" />
+  </uq:Parameter>
+
+  <uq:UncertainParameter name="dcMotor.R" source="Estimated"
+      sourceInfo="From project XYZ">
+    <uq:Normal mu="0.1" sigma="0.01" unit="Ohm" />
+  </uq:UncertainParameter>
+
+  <uq:UncertainParameter name="dcMotor.L" source="Computed"
+      sourceInfo="From project XYZ">
+    <uq:Uniform minimum="1.05e-4" maximum="1.15e-4" unit="V.s/A" />
+  </uq:UncertainParameter>
+</uq:Parameters>

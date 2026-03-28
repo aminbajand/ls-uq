@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ECS DoV operational domain boundary externalized from ecs_dov_setup.xml -->
+<uq:ConvexHull xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification">
+  <uq:Point coordinates="0.0 0.0" />
+  <uq:Point coordinates="10000 0.0" />
+  <uq:Point coordinates="0.0 1.0" />
+  <uq:Point coordinates="10000 1.0" />
+</uq:ConvexHull>

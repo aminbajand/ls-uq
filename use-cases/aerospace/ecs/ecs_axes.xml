@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ECS DoV operational domain axes externalized from ecs_dov_setup.xml -->
+<uq:Axes xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification">
+  <uq:Axis name="ALT" unit="m" />
+  <uq:Axis name="MACH" unit="1" />
+</uq:Axes>

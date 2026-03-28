@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DC Motor operational domain axes externalized from dc_motor_setup.xml -->
+<uq:Axes xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification">
+  <uq:Axis name="V" unit="V"/>
+  <uq:Axis name="T" unit="Nm"/>
+</uq:Axes>

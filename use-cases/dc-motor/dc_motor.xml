@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<uq:UncertaintyQuantification
+    name="ScenarioDCMotor_ForwardUQ"
+    xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification"
+    xmlns:ssv="http://ssp-standard.org/SSP1/SystemStructureParameterValues"
+    xmlns:ssc="http://ssp-standard.org/SSP1/SystemStructureCommon"
+    xmlns:stc="http://ssp-standard.org/SSPTraceability1/SSPTraceabilityCommon"
+>
+
+   <uq:Model
+        name="ScenarioDCMotor"
+        file="DCMotorUQExample_L3_causal.mo"
+        model="modelica://DCMotorUQExample.ScenarioDCMotor"
+        modelResourceMetaData="dc_motor.srmd"
+    >
+
+         <!-- Modeling assumptions: what the model DOES assume -->
+      <uq:ModelingAssumptions
+            id="ma_dcmotor"
+            generationDateAndTime="2026-03-16T00:00:00"
+            author="antoine.vandamme@de.bosch.com"
+        >
+
+         <!-- Free text assumption -->
+         <uq:Assumption
+                id="ma_01"
+                name="magneticSaturation"
+                origin="empirical"
+                originRef="DCMotor_magnetic.pdf"
+            >
+           <uq:Text
+                >Low magnetic saturation rate assumed: No magnetic saturation consideder.</uq:Text>
+         </uq:Assumption>
+
+         <!-- Free text assumption -->
+         <uq:Assumption
+                id="ma_02"
+                name="thermalEffects"
+                origin="empirical"
+                originRef="DCMotor_thermal.pdf"
+            >
+           <uq:Text
+                >Limited electric and mechanical losses assumed: No thermal effects considered.</uq:Text>
+         </uq:Assumption>
+
+      </uq:ModelingAssumptions>
+   </uq:Model>
+
+   <uq:Activities id="act_01">
+
+      <!-- tag::Verification[] -->
+	  <uq:Verification
+            id="verif_01"
+            name="Deterministic motor acceleration"
+            activityDomainRef="do_verification"
+        >
+
+         <uq:SimulationSetting
+                stopTime="0.5"
+                interval="0.001"
+                tolerance="1e-6"
+                method="dassl"
+            >
+            <uq:KeyValues type="com.3ds.uq">
+               <uq:KeyValue
+                        key="translation.pedanticModeForCheckingModelicaSemantics"
+                        value="true"
+                    />
+               <uq:KeyValue key="output.storeVariablesAtEvents" value="true" />
+            </uq:KeyValues>
+         </uq:SimulationSetting>
+
+          <uq:ReferenceData description="Solution from expm discretization">
+            <uq:DataSource
+                    name="DCMotor_verif01_ref"
+                    file="verification/verif_01/time_sol_verif01_ref.txt"
+                    type="text/txt"
+                />
+          </uq:ReferenceData>
+
+
+    </uq:Verification>
+
+	  <uq:Verification
+            id="verif_02"
+            name="Stochastic motor acceleration"
+            activityDomainRef="do_verification"
+        >
+
+         <uq:SimulationSetting
+                stopTime="0.5"
+                interval="0.001"
+                tolerance="1e-6"
+                method="dassl"
+            >
+            <uq:KeyValues type="com.3ds.uq">
+               <uq:KeyValue
+                        key="translation.pedanticModeForCheckingModelicaSemantics"
+                        value="true"
+                    />
+               <uq:KeyValue key="output.storeVariablesAtEvents" value="true" />
+            </uq:KeyValues>
+         </uq:SimulationSetting>
+
+          <uq:ReferenceData description="Solution from expm discretization">
+            <uq:DataSource
+                    name="DCMotor_verif02_ref"
+                    file="verification/verif_02/time_sol_verif_02_ref.txt"
+                    type="text/txt"
+                />
+          </uq:ReferenceData>
+
+    </uq:Verification>
+	<!-- end::Verification[] -->
+
+      	  <!-- tag::ForwardUncertaintyQuantification[] -->
+	  <uq:ForwardUncertaintyQuantification id="fuq_01">
+
+         <uq:ParameterSet>
+            <uq:Parameters
+                    source="dc_motor_parameters.xml"
+                    type="application/xml"
+                    checksum="12f76c232fb84e4fb90595f6535e8ec08676eeab04df4663275813704778c60b"
+                    checksumType="sha256"
+                />
+
+            <uq:OperationalDomain>
+               <uq:Axes source="dc_motor_axes.xml" type="application/xml" />
+               <uq:Boundary>
+                  <uq:HyperRectangle
+                            source="dc_motor_boundary.xml"
+                            type="application/xml"
+                        />
+               </uq:Boundary>
+               <uq:ExperimentPoints>
+                  <uq:PointSet>
+                     <uq:Points>
+                        <uq:Point coordinates="12.0 0.0" id="fuq_01_P0" />
+                        <uq:Point coordinates="12.0 0.0" id="fuq_01_P1" />
+                     </uq:Points>
+                  </uq:PointSet>
+               </uq:ExperimentPoints>
+            </uq:OperationalDomain>
+
+            <uq:Units source="dc_motor_units.xml" type="application/xml" />
+         </uq:ParameterSet>
+
+         <uq:ObservedVariables>
+            <uq:ObservedVariable
+                    name="dcMotor.omega"
+                    distributionApproximation="Normal"
+                />
+         </uq:ObservedVariables>
+
+         <uq:DesiredResults
+                data="dc_motor.mat"
+                summary="dc_motor_result_summary.xml"
+                scope="Trajectory"
+                mean="true"
+                standardDeviation="true"
+                histogram="true"
+                pdf="true"
+                cdf="true"
+                quantile="true"
+            >
+            <uq:Percentiles level="0 0.05 0.5 0.95 1.0" />
+            <uq:SobolIndices order="2" total="true" />
+         </uq:DesiredResults>
+
+         <uq:SimulationSetting
+                stopTime="0.5"
+                interval="0.001"
+                tolerance="1e-6"
+                method="dassl"
+            >
+            <uq:KeyValues type="com.3ds.uq">
+               <uq:KeyValue
+                        key="translation.pedanticModeForCheckingModelicaSemantics"
+                        value="true"
+                    />
+               <uq:KeyValue key="output.storeVariablesAtEvents" value="true" />
+            </uq:KeyValues>
+         </uq:SimulationSetting>
+
+         <uq:SamplingMethod>
+            <uq:LatinHyperCube numberOfSamples="256">
+               <uq:KeyValues type="com.3ds.uq">
+                  <uq:KeyValue key="randomNumberGenerator" value="MT19937-64" />
+                  <uq:KeyValue key="randomNumberSeed" value="10" />
+               </uq:KeyValues>
+            </uq:LatinHyperCube>
+         </uq:SamplingMethod>
+
+      </uq:ForwardUncertaintyQuantification>
+	  <!-- end::ForwardUncertaintyQuantification[] -->
+
+   </uq:Activities>
+</uq:UncertaintyQuantification>

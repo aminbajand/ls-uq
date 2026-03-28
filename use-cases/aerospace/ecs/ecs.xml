@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uq:UncertaintyQuantification
+   name="Example"
+   xmlns:uq="http://openscaling.org/UQ1/UncertaintyQuantification"
+   xmlns:ssv="http://ssp-standard.org/SSP1/SystemStructureParameterValues"
+   xmlns:ssc="http://ssp-standard.org/SSP1/SystemStructureCommon"
+   xmlns:stc="http://ssp-standard.org/SSPTraceability1/SSPTraceabilityCommon"
+   info=""
+>
+
+   <uq:Model name="Example" file="example.fmu" />
+
+   <uq:Activities id="act_01">
+
+      <uq:Validation id="val_01">
+         <uq:ParameterSet>
+            <uq:OperationalDomain>
+               <uq:Axes source="ecs_axes.xml" type="application/xml" />
+               <uq:Boundary>
+                  <uq:ConvexHull
+                     source="ecs_boundary.xml"
+                     type="application/xml"
+                  />
+               </uq:Boundary>
+               <uq:ExperimentPoints>
+                  <uq:PointSet id="val_01_exps_01">
+                     <uq:Points>
+                        <uq:Point coordinates="100 0.004" id="P1" />
+                        <uq:Point coordinates="1720 0.58" id="P2" />
+                     </uq:Points>
+                     <uq:Parameters />
+                  </uq:PointSet>
+               </uq:ExperimentPoints>
+            </uq:OperationalDomain>
+         </uq:ParameterSet>
+         <uq:ObservedVariables>
+            <uq:ObservedVariable name="outletTemp" />
+            <uq:ObservedVariable name="inletTemp" />
+         </uq:ObservedVariables>
+         <uq:ResultSet>
+            <uq:Results point="P1">
+               <uq:ErrorMetric type="relativeError" value="0.295" />
+               <uq:ErrorMetric type="relativeError" value="0.292" />
+            </uq:Results>
+            <uq:Results point="P2">
+               <uq:ErrorMetric type="relativeError" value="0.293" />
+               <uq:ErrorMetric type="relativeError" value="0.289" />
+            </uq:Results>
+         </uq:ResultSet>
+      </uq:Validation>
+   </uq:Activities>
+</uq:UncertaintyQuantification>
